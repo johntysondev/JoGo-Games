@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Loading... - JoGo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;800&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0a0a0c;
+      color: #e8e8ec;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .top-bar {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 10px 20px;
+      background: rgba(10, 10, 12, 0.9);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid #232330;
+      flex-shrink: 0;
+      z-index: 10;
+    }
+    .back-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      color: #7a7a8a;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 6px 12px;
+      border-radius: 8px;
+      border: 1px solid #232330;
+      background: transparent;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .back-btn:hover {
+      color: #e8e8ec;
+      border-color: #3a3a50;
+    }
+    .game-title {
+      font-size: 16px;
+      font-weight: 800;
+      flex: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .fullscreen-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      color: #7a7a8a;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 6px 12px;
+      border-radius: 8px;
+      border: 1px solid #232330;
+      background: transparent;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .fullscreen-btn:hover {
+      color: #e8e8ec;
+      border-color: #3a3a50;
+    }
+    .game-frame {
+      flex: 1;
+      width: 100%;
+      border: none;
+      background: #000;
+    }
+    .loading {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #7a7a8a;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div class="top-bar">
+    <a href="index.html" class="back-btn">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5m0 0l7 7m-7-7l7-7"/></svg>
+      Back
+    </a>
+    <span class="game-title" id="gameTitle">Loading...</span>
+    <button class="fullscreen-btn" id="fullscreenBtn">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 00-2 2v3m18 0V5a2 2 0 00-2-2h-3m0 18h3a2 2 0 002-2v-3M3 16v3a2 2 0 002 2h3"/></svg>
+      Fullscreen
+    </button>
+  </div>
+  <div class="loading" id="loading">Loading game...</div>
+  <iframe class="game-frame" id="gameFrame" style="display:none;" allowfullscreen></iframe>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const gameId = params.get('id');
+
+    if (!gameId) {
+      document.getElementById('loading').textContent = 'No game specified.';
+    } else {
+      const name = gameId.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+      document.getElementById('gameTitle').textContent = name;
+      document.title = name + ' - JoGo';
+
+      const frame = document.getElementById('gameFrame');
+      const loading = document.getElementById('loading');
+
+      frame.onload = () => {
+        loading.style.display = 'none';
+        frame.style.display = 'block';
+      };
+
+      frame.onerror = () => {
+        loading.textContent = 'Failed to load game.';
+      };
+
+      frame.src = gameId + '/index.html';
+    }
+
+    document.getElementById('fullscreenBtn').addEventListener('click', () => {
+      const el = document.getElementById('gameFrame');
+      if (el.requestFullscreen) el.requestFullscreen();
+      else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+    });
+  </script>
+</body>
+</html>

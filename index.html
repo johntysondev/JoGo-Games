@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JoGo - Free Online Games</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="logo">
+        <span class="logo-icon">&#9654;</span>
+        <span class="logo-text">JoGo</span>
+      </a>
+      <div class="nav-right">
+        <span class="game-count" id="gameCount">0 games</span>
+      </div>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <h1>Play <span class="accent">416</span> free games</h1>
+    <p>No downloads. No signup. Just click and play.</p>
+    <div class="search-box">
+      <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+      <input type="text" id="searchInput" placeholder="Search games..." autocomplete="off">
+    </div>
+  </section>
+
+  <section class="games-section">
+    <div class="container">
+      <div class="filter-bar">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="action">Action</button>
+        <button class="filter-btn" data-filter="puzzle">Puzzle</button>
+        <button class="filter-btn" data-filter="io">.io</button>
+        <button class="filter-btn" data-filter="platformer">Platformer</button>
+        <button class="filter-btn" data-filter="sports">Sports</button>
+        <button class="filter-btn" data-filter="idle">Idle / Clicker</button>
+        <button class="filter-btn" data-filter="classic">Classic</button>
+      </div>
+      <div class="games-grid" id="gamesGrid"></div>
+      <div class="no-results" id="noResults" style="display:none;">No games found.</div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <span>JoGo &mdash; Free online games. No ads, no BS.</span>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
